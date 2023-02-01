@@ -4,14 +4,24 @@ const port = 3002;
 const bodyParser = require('body-parser');
 const app = express();
 const routes = require('./routes/routes');
-// Use Node.js body parsing middleware 
+const cors = require('cors');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
+const corsOptions = {
+    origin: 'http://localhost',
+    optionsSuccessStatus: 200
+  }
+  
+  app.use(cors(corsOptions));
+
+
 routes(app);
-// Start the server 
+
+
 const server = app.listen(port, (error) => {
     if (error) return console.log(`Error: ${error}`);
     console.log(`Server listening on port ${server.address().port}`);
