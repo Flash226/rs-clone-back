@@ -1,4 +1,3 @@
-// Require packages and set the port 
 const express = require('express');
 const port = 3002;
 const bodyParser = require('body-parser');
@@ -11,16 +10,9 @@ app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
-// const corsOptions = {
-//     origin: 'http://localhost',
-//     optionsSuccessStatus: 200
-//   }
-  
-//   app.use(cors(corsOptions));
 app.use(cors());
 
 routes(app);
-
 
 const server = app.listen(port, (error) => {
     if (error) return console.log(`Error: ${error}`);
