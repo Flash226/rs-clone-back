@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
-const corsOptions = {
-    origin: 'http://localhost',
-    optionsSuccessStatus: 200
-  }
+// const corsOptions = {
+//     origin: 'http://localhost',
+//     optionsSuccessStatus: 200
+//   }
   
-  app.use(cors(corsOptions));
-
+//   app.use(cors(corsOptions));
+app.use(cors());
 
 routes(app);
 
