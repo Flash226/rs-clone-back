@@ -9,6 +9,6 @@ router.post('/registration', [
   check('password', 'Password must be more than 5 and less than 12 characters').isLength({ min: 5 })
 ], controller.registration);
 router.post('/login', controller.login);
-router.get('/users', authMiddleware, controller.getUsers);
+router.get('/check', authMiddleware, controller.getUsers);
 
 module.exports = router;
