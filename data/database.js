@@ -599,6 +599,10 @@ const db = {
         flavor1: 3,
         flavor2: 4,
       },
+      compositionByPercentage: {
+        flavor1: 50,
+        flavor2: 50,
+      },
       image: "./images/Mixes/6.webp",
       id: 6,
     },

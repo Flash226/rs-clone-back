@@ -63,19 +63,20 @@ class AuthController {
     }
   }
 
-  async getUsers(req, res) {
+  checkAuth(req, res) {
     try {
-      const users = await User.find();
-      return res.json(users);
-      // const userRole = new Role()
-      // const adminRole = new Role({value: 'admin'})
-      // await userRole.save();
-      // await adminRole.save();
-      res.json('server work')
+      return res.json(true);
     } catch (e) {
 
     }
   }
 }
 
+// const users = await User.find();
+// return res.json(users);
+// const userRole = new Role()
+// const adminRole = new Role({value: 'admin'})
+// await userRole.save();
+// await adminRole.save();
+// res.json('server work')
 module.exports = new AuthController();
