@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const routes = require('./routes/routes');
 const routesAuth = require('./routes/routesAuth')
+const routesProfile = require('./routes/routesProfile')
 const cors = require('cors');
 const path = require('path');
 
@@ -17,8 +18,9 @@ app.use(cors());
 
 app.use('/auth', routesAuth);
 
-app.use(express.static(__dirname + '/public'));
+app.use('/auth', routesProfile);
 
+app.use(express.static(__dirname + '/public'));
 
 routes(app);
 
