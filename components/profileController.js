@@ -33,7 +33,6 @@ class ProfileController {
     try {
       const { data } = req.body;
       const result = await extendedProfile.updateOne({_id: data._id}, data)
-      console.log(result);
       if (result.modifiedCount === 1) return res.json({message: `Profile edited`});
     } catch (e) {
       console.log(e);
