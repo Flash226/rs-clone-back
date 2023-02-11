@@ -1,5 +1,5 @@
-const extendedProfile = require('../models/extended_user_profile');
-const User = require('../models/user');
+const extendedProfile = require('../../models/extended_user_profile');
+const User = require('../../models/user');
 const { json } = require('express');
 
 class ProfileController {
@@ -32,13 +32,13 @@ class ProfileController {
   async setProfile(req, res) {
     try {
       const { data } = req.body;
-      const result = await extendedProfile.updateOne({_id: data._id}, data)
+      const result = await extendedProfile.updateOne({_id: data._id}, data);
       if (result.modifiedCount === 1) return res.json({message: `Profile edited`});
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Profile edit error`});
-    }
-  }
-}
+    };
+  };
+};
 
 module.exports = new ProfileController();

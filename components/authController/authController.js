@@ -1,30 +1,23 @@
-const User = require('../models/user');
-const Role = require('../models/role');
+const User = require('../../models/user');
+const Role = require('../../models/role');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../configJwt');
-const user = require('../models/user');
+const { secret } = require('../../configJwt');
+const user = require('../../models/user');
 const { json } = require('express');
 
 const generateAccessToken = (id, roles) => {
   const payload = {
     id,
     roles
-  }
+  };
   return jwt.sign(payload, secret, {expiresIn: "24h"});
-}
+};
 
 class AuthController {
   async registration(req, res) {
     try {
-      // validation
-      // const errors = validationResult(res);
-      // console.log(errors)
-      // if (!errors.isEmpty()) {
-      //   return res.status(400).json({message:'Registration error', errors})
-      // };
-
       const { username, password } = req.body;
       const candidate = await User.findOne({username});
       if (candidate) {
@@ -35,10 +28,10 @@ class AuthController {
       const userRole = await Role.findOne({value: 'user'});
       const user = new User({username, password: hashPassword, roles: [userRole.value]});
       await user.save();
-      return res.json({message: `User successfully registered`})
+      return res.json({message: `User successfully registered`});
     } catch (e) {
-      console.log(e)
-      res.status(400).json({message: `Registration error`})
+      console.log(e);
+      res.status(400).json({message: `Registration error`});
     }
   }
 
@@ -50,7 +43,6 @@ class AuthController {
         return res.status(400).json({message: `User ${username} not found`});
       }
       const validPassword = bcrypt.compareSync(password, user.password);
-      console.log(111, user)
       if (!validPassword) {
         return res.status(400).json({message: `Password not valid`});
       }
@@ -58,8 +50,8 @@ class AuthController {
       const token = generateAccessToken(user._id, user.roles);
       return res.json({token, userId});
     } catch (e) {
-      console.log(e)
-      res.status(400).json({message: `Login error`}) 
+      console.log(e);
+      res.status(400).json({message: `Login error`});
     }
   }
 
@@ -67,16 +59,10 @@ class AuthController {
     try {
       return res.json(true);
     } catch (e) {
-
+      console.log(e)
+      return res.json('Something error!');
     }
   }
 }
 
-// const users = await User.find();
-// return res.json(users);
-// const userRole = new Role()
-// const adminRole = new Role({value: 'admin'})
-// await userRole.save();
-// await adminRole.save();
-// res.json('server work')
 module.exports = new AuthController();

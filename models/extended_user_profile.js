@@ -9,10 +9,10 @@ const extendedProfile = new Schema({
   myMix: [{type: Number, required: false}],
   rating: [
     {
-      id: { type: Number, unique: true },
+      id: { type: Number, unique: false },
       rate: { type: Number, unique: false }
     },
 ],
 })
 
-module.exports = model('extendedProfile', extendedProfile)
+module.exports = model('extendedProfile', extendedProfile);
