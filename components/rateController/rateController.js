@@ -7,23 +7,8 @@ class RateController {
   async getRate(req, res) {
     try {
       const id = Number(req.params.id.slice(1));
-      const vote = [];
-      const rateArr = await extendedProfile.find({"rating.id": id});
-
-      if (rateArr.length === 0) return res.json({"rate": 0, "vote": 0});
-      rateArr.map((el) => {
-        for (let i = 0; i < el.rating.length; i += 1) {
-          if (el.rating[i].id === id) {
-            vote.push(el.rating[i].rate);
-          }
-        }
-      });
-
-      const rate = (vote.reduce(function(sum, elem) {
-        return sum + elem;
-      }, 0)) / vote.length.toFixed(1);
-
-      return res.json({"rate": rate, "vote": vote.length});
+      const rate = await getRateFunction(id);
+      return res.json(rate);
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Rate error`});
