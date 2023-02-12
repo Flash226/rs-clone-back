@@ -23,6 +23,6 @@ module.exports.getRateFunction = async function(id) {
 
   const rate = (vote.reduce(function(sum, elem) {
     return sum + elem;
-  }, 0)) / vote.length.toFixed(1);
-  return {rate: rate, vote: vote.length};
+  }, 0)) / vote.length;
+  return {rate: rate.toFixed(1), vote: vote.length};
 }

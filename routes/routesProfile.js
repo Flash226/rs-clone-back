@@ -9,5 +9,7 @@ router.post('/profile', profileController.getProfile);
 router.post('/profiles', profileController.setProfile);
 router.get('/rate/:id', rateController.getRate);
 router.post('/rate', rateController.setRate);
+router.get('/favorite/:id', rateController.getFavorite);
+router.post('/favorite', rateController.setFavorite);
 
 module.exports = router;

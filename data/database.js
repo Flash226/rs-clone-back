@@ -22,7 +22,7 @@ const db = {
     },
     {
       name: "Must Have",
-      image: "./images/Chabacco/musthave-logo.webp",
+      image: ".images/Must Have/musthave-logo.webp",
       id: 5,
     },
   ],
