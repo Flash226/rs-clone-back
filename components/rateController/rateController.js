@@ -1,4 +1,5 @@
 const extendedProfile = require('../../models/extended_user_profile');
+const notAuthProfile = require('../../models/not_auth_user_profile')
 const User = require('../../models/user');
 const { json } = require('express');
 const { getRateFunction } = require('../getRateFunction/getRateFunction');
@@ -18,7 +19,12 @@ class RateController {
   async setRate(req, res) {
     try {
       const { userId, id, rate } = req.body;
-      const userProfile = await extendedProfile.findOne({userId: userId});
+      let userProfile;
+      if (userId.length > 12) {
+        userProfile = await extendedProfile.findOne({userId: userId});
+      } else {
+        userProfile = await notAuthProfile.findOne({userId: userId});
+      }
       const idMix = [];
       for (let i = 0; i < userProfile.rating.length; i +=1) {
         idMix.push(userProfile.rating[i].id);
