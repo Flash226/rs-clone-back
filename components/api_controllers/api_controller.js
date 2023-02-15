@@ -1,6 +1,8 @@
 const Brand = require('../../models/brand');
 const Flavor = require('../../models/flavor');
 const SearchPhrase = require('../../models/search_phrase');
+const extendedProfile = require('../../models/extended_user_profile');
+const notAuthProfile = require('../../models/not_auth_user_profile');
 const FlavorPreference = require('../../models/flavor_preference');
 const db = require('../../data/database');
 
@@ -180,6 +182,35 @@ class ApiController {
       res.status(400).json({message: `Search phrase error`});
     }
   }
+
+  async getTop10(req, res) {
+    try {
+      const allUserProfile = await extendedProfile.find();
+      const allNonAuthProfile = await notAuthProfile.find();
+      const voteUser = allUserProfile.map((el) => el.rating);
+      const voteNonAuth = allNonAuthProfile.map((el) => el.rating);
+      const arr = [...voteUser, ...voteNonAuth];
+
+      const idCounts = arr.flat().reduce((counts, item) => {
+        const { id } = item;
+        counts[id] = counts[id] ? counts[id] + 1 : 1;
+        return counts;
+      }, {});
+
+      const sortedArr = Object.keys(idCounts).sort((a, b) => idCounts[b] - idCounts[a]);
+
+      const sortedIds = sortedArr.map(id => parseInt(id, 10)).slice(0, 10);
+      const arrMixes = [];
+      for (let i = 0; i < sortedIds.length; i += 1) {
+        arrMixes.push(db.mixes[sortedIds[i]]);
+      }
+      res.status(200).json({arrMixes});
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get flavor error`});
+    }
+  };
+
 };
 
 

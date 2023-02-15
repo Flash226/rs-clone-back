@@ -48,6 +48,9 @@ const router = app => {
     res.status(200).json(randomMix.getRandomMix());
 	});
 
+
+  app.get('/api/top10', apiController.getTop10);
+
   app.get('*', (request, response) => {
     response.status(404).send('404');
   });

@@ -1,5 +1,5 @@
 const extendedProfile = require('../../models/extended_user_profile');
-const notAuthProfile = require('../../models/not_auth_user_profile')
+const notAuthProfile = require('../../models/not_auth_user_profile');
 const User = require('../../models/user');
 const { json } = require('express');
 
