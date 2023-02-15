@@ -1,4 +1,5 @@
 const db = require('../data/database');
+const randomMix = require('../components/random_mix/random_mix')
 const apiController = require('../components/api_controllers/api_controller');
 
 
@@ -40,6 +41,11 @@ const router = app => {
     } else {
       response.status(200).send(db.mixes[indexElement]);
    }
+	});
+
+
+  app.get('/api/randommix', (req, res) => {
+    res.status(200).json(randomMix.getRandomMix());
 	});
 
   app.get('*', (request, response) => {
