@@ -51,6 +51,8 @@ const router = app => {
 
   app.get('/api/top10', apiController.getTop10);
 
+  app.get('/api/allrate', apiController.getAllRate);
+
   app.get('*', (request, response) => {
     response.status(404).send('404');
   });

@@ -207,7 +207,36 @@ class ApiController {
       res.status(200).json({arrMixes});
     } catch (e) {
       console.log(e);
-      res.status(400).json({message: `Get flavor error`});
+      res.status(400).json({message: `Get top 10 error`});
+    }
+  };
+
+  async getAllRate(req, res) {
+    try {
+      const allUserProfile = await extendedProfile.find();
+      const allNonAuthProfile = await notAuthProfile.find();
+      const voteUser = allUserProfile.map((el) => el.rating);
+      const voteNonAuth = allNonAuthProfile.map((el) => el.rating);
+      const arr = [...voteUser, ...voteNonAuth];
+      const result = Object.values(arr.flat()
+        .reduce((acc, { id, rate }) => {
+          if (!acc[id]) {
+            acc[id] = { id, rate: 0, votes: 0 };
+          }
+          acc[id].rate += rate;
+          acc[id].votes += 1;
+          return acc;
+        }, {}))
+        .map(({ id, rate, votes }) => ({
+          id,
+          rate: (rate / votes).toFixed(1),
+          votes,
+        }));
+
+      res.status(200).json({result});
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get all rate error`});
     }
   };
 
