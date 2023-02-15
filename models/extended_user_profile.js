@@ -6,6 +6,7 @@ const extendedProfile = new Schema({
   instagramAccount: {type: String, required: false},
   avatar: {type: String, required: false},
   favorite: [{type: Number, required: false}],
+  favoriteFlavors: [{type: Number, required: false}],
   myMix: [{type: Number, required: false}],
   rating: [
     {

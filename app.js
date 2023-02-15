@@ -9,6 +9,8 @@ const routesProfile = require('./routes/routesProfile');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const crypto = require('crypto');
+const fs = require('fs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -29,14 +31,29 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post('/uploadfile', upload.single('image'), function (req, res, next) {
-    const file = req.file
-    if (!file) {
-        const error = new Error('Please upload a file');
-        error.httpStatusCode = 400;
-        return next(error);
+  fs.readFile(req.file.path, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      const hash = crypto.createHash('md5');
+      hash.update(data);
+      const fileHash = hash.digest('hex');
+      const extension = req.file.originalname.split('.').pop();
+      const oldPath = req.file.path;
+      const newPath = `uploads/${fileHash}.${extension}`;
+      fs.rename(oldPath, newPath, err => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          res.json({ filename: `${fileHash}.${extension}` });
+        }
+      });
     }
-    res.send(file);
-  })
+  });
+})
+
 
 app.use('/auth', routesAuth);
 

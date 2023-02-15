@@ -525,8 +525,8 @@ const db = {
         flavor2: 42,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 35,
+        flavor2: 65,
       },
       image: "./images/Mixes/1.webp",
       id: 1,
@@ -540,8 +540,8 @@ const db = {
         flavor2: 43,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 48,
+        flavor2: 52,
       },
       image: "./images/Mixes/2.webp",
       id: 2,
@@ -555,8 +555,8 @@ const db = {
         flavor2: 6,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 38,
+        flavor2: 62,
       },
       image: "./images/Mixes/3.webp",
       id: 3,
@@ -570,8 +570,8 @@ const db = {
         flavor2: 43,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 56,
+        flavor2: 44,
       },
       image: "./images/Mixes/4.webp",
       id: 4,
@@ -585,8 +585,8 @@ const db = {
         flavor2: 45,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 41,
+        flavor2: 59,
       },
       image: "./images/Mixes/5.webp",
       id: 5,
@@ -600,8 +600,8 @@ const db = {
         flavor2: 4,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 72,
+        flavor2: 28,
       },
       image: "./images/Mixes/6.webp",
       id: 6,
@@ -615,8 +615,8 @@ const db = {
         flavor2: 16,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 61,
+        flavor2: 39,
       },
       image: "./images/Mixes/7.webp",
       id: 7,
@@ -630,8 +630,8 @@ const db = {
         flavor2: 24,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 64,
+        flavor2: 36,
       },
       image: "./images/Mixes/8.webp",
       id: 8,
@@ -645,8 +645,8 @@ const db = {
         flavor2: 25,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 45,
+        flavor2: 55,
       },
       image: "./images/Mixes/9.webp",
       id: 9,
@@ -660,8 +660,8 @@ const db = {
         flavor2: 35,
       },
       compositionByPercentage: {
-        flavor1: 50,
-        flavor2: 50,
+        flavor1: 28,
+        flavor2: 72,
       },
       image: "./images/Mixes/10.webp",
       id: 10,
@@ -676,9 +676,9 @@ const db = {
         flavor3: 11,
       },
       compositionByPercentage: {
-        flavor1: 33.33,
-        flavor2: 33.33,
-        flavor3: 33.33,
+        flavor1: 25.33,
+        flavor2: 48.33,
+        flavor3: 26.33,
       },
       image: "./images/Mixes/11.webp",
       id: 11,
@@ -840,7 +840,7 @@ const db = {
       name: "Фруктовое безумие",
       description:
         "Дразнящая смесь малины Brusko и лемона с лаймом Must Have создает взрыв острого вкуса, дополненного сладкими и сочными нотами ананасовых колец Must Have и грейпфрута с малиной Brusko. Приготовьтесь к вихрю фруктовых ароматов в каждом вздохе!",
-      compositionByIdById: {
+      compositionById: {
         flavor1: 8,
         flavor2: 43,
         flavor3: 42,

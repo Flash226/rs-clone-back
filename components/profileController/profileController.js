@@ -19,6 +19,7 @@ class ProfileController {
             instagramAccount: '',
             avatar: '',
             favorite: [],
+            favoriteFlavors: [],
             myMix: [],
             rating: [],
           });

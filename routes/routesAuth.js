@@ -11,4 +11,5 @@ router.post('/registration', [
 router.post('/login', controller.login);
 router.get('/check', authMiddleware, controller.checkAuth);
 
+
 module.exports = router;

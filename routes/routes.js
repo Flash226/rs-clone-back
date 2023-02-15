@@ -1,4 +1,6 @@
 const db = require('../data/database');
+const apiController = require('../components/api_controllers/api_controller');
+
 
 const router = app => {
   app.get('/', (request, response) => {
@@ -12,27 +14,23 @@ const router = app => {
     next();
   })
 
-  app.get('/api/brands', (request, response) => {
-		response.send(db.brands);
-	});
+  app.get('/api/brands', apiController.getBrands);
 
-  app.get('/api/flavors', (request, response) => {
-		response.send(db.flavors);
-	});
+  app.post('/api/brands', apiController.setBrand);
+
+  app.post('/api/flavors', apiController.setFlavor);
+
+  app.get('/api/flavors', apiController.getFlavors);
 
   app.get('/api/mixes', (request, response) => {
 		response.send(db.mixes);
 	});
 
-  app.get('/api/flavors/:id', (request, response) => {
-    const id = Number(request.params.id.slice(1));
-    const indexElement = db.flavors.findIndex((el) => el.id === id);
-    if (indexElement === -1) {
-      response.status(404).send('404');
-    } else {
-      response.status(200).send(db.flavors[indexElement]);
-   }
-	});
+  app.get('/api/flavors/:id', apiController.getFlavor);
+  
+  app.get('/search/:phrase', apiController.searchAccessor);
+
+  app.post('/flavorpreference', apiController.flavorPreferenceAccessor);
 
   app.get('/api/mixes/:id', (request, response) => {
     const id = Number(request.params.id.slice(1));

@@ -63,6 +63,7 @@ class AuthController {
       return res.json('Something error!');
     }
   }
+
 }
 
 module.exports = new AuthController();
