@@ -72,6 +72,36 @@ class RateController {
       res.status(400).json({message: `Set favorite error`});
     }
   };
+
+  async getFavoriteFlavor(req, res) {
+    try {
+      const id = String(req.params.id.slice(1));
+      const userProfile = await extendedProfile.findOne({userId: id});
+      const favoriteFlavors = userProfile.favoriteFlavors;
+      return res.json(favoriteFlavors);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get favorite flavors error`});
+    }
+  };
+
+  async setFavoriteFlavor(req, res) {
+    try {
+      const { userId, id } = req.body;
+      const userProfile = await extendedProfile.findOne({userId: userId});
+      if (userProfile.favoriteFlavors.indexOf(id) === -1) {
+        userProfile.favoriteFlavors.push(id);
+      } else {
+        userProfile.favoriteFlavors.splice(userProfile.favoriteFlavors.indexOf(id), 1);
+      }
+      await userProfile.save();
+      return res.status(200).json(userProfile.favoriteFlavors); 
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Set favorite flavors error`});
+    }
+  };
+
 }
 
 module.exports = new RateController();
