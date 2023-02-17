@@ -204,7 +204,7 @@ class ApiController {
       for (let i = 0; i < sortedIds.length; i += 1) {
         arrMixes.push(db.mixes[sortedIds[i]]);
       }
-      res.status(200).json({arrMixes});
+      res.status(200).json(arrMixes);
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Get top 10 error`});
@@ -233,7 +233,7 @@ class ApiController {
           votes,
         }));
 
-      res.status(200).json({result});
+      res.status(200).json(result);
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Get all rate error`});
