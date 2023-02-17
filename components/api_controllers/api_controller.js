@@ -178,7 +178,7 @@ class ApiController {
           res.status(200).json(flavorPreference);
         }
       } else {
-        res.status(200).json({flavors: flavorPreferenceUser.flavors, strange: flavorPreferenceUser.strange brands: flavorPreferenceUser.brands});
+        res.status(200).json({flavors: flavorPreferenceUser.flavors, strange: flavorPreferenceUser.strange, brands: flavorPreferenceUser.brands});
       }
     } catch (e) {
       console.log(e);
