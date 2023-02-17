@@ -149,18 +149,20 @@ class ApiController {
 
   async flavorPreferenceAccessor(req, res) {
     try {
-      const { userId, flavors, strange } = req.body;
+      const { userId, flavors, strange, brands } = req.body;
       let flavorPreferenceUser = await FlavorPreference.findOne({userId: userId});
       if (flavors !== undefined) {
         if (await FlavorPreference.count() !== 0) {
           if (flavorPreferenceUser) {
             flavorPreferenceUser.flavors = flavors;
             flavorPreferenceUser.strange = strange;
+            flavorPreferenceUser.brands = brands;
           } else {
             flavorPreferenceUser = new FlavorPreference({
               userId: userId,
               flavors: flavors,
               strange: strange,
+              brands: brands,
             })
           }
           await flavorPreferenceUser.save();
@@ -170,16 +172,17 @@ class ApiController {
             userId: userId,
             flavors: flavors,
             strange: strange,
+            brands: brands,
           });
           await flavorPreference.save();
           res.status(200).json(flavorPreference);
         }
       } else {
-        res.status(200).json({flavors: flavorPreferenceUser.flavors, strange: flavorPreferenceUser.strange});
+        res.status(200).json({flavors: flavorPreferenceUser.flavors, strange: flavorPreferenceUser.strange brands: flavorPreferenceUser.brands});
       }
     } catch (e) {
       console.log(e);
-      res.status(400).json({message: `Search phrase error`});
+      res.status(400).json({message: `Flavor preference error`});
     }
   }
 
