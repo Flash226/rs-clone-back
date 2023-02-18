@@ -199,15 +199,14 @@ class ApiController {
         counts[id] = counts[id] ? counts[id] + 1 : 1;
         return counts;
       }, {});
-
       const sortedArr = Object.keys(idCounts).sort((a, b) => idCounts[b] - idCounts[a]);
-
       const sortedIds = sortedArr.map(id => parseInt(id, 10)).slice(0, 10);
       const arrMixes = [];
       for (let i = 0; i < sortedIds.length; i += 1) {
-        arrMixes.push(db.mixes[sortedIds[i]]);
+        arrMixes.push(db.mixes[sortedIds[i] - 1]);
       }
-      res.status(200).json(arrMixes);
+      console.log(arrMixes)
+      return res.status(200).json(arrMixes);
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Get top 10 error`});
