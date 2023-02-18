@@ -23,8 +23,8 @@ const router = app => {
 
   app.get('/api/flavors', apiController.getFlavors);
 
-  app.get('/api/mixes', (request, response) => {
-		response.send(db.mixes);
+  app.get('/api/mixes', (req, res) => {
+		res.send(db.mixes);
 	});
 
   app.get('/api/flavors/:id', apiController.getFlavor);

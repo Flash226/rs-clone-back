@@ -11,6 +11,7 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
+let lastChange = 0;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -54,6 +55,14 @@ app.post('/uploadfile', upload.single('image'), function (req, res, next) {
   });
 })
 
+app.post('*', function(req, res, next) {
+  lastChange = new Date();
+  next();
+});
+
+app.get('/changeTime', function(req, res, next) {
+  res.send({message: lastChange});
+});
 
 app.use('/auth', routesAuth);
 
