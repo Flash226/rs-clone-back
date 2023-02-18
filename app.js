@@ -11,7 +11,7 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-let lastChange = 0;
+let lastChange = new Date;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -60,7 +60,7 @@ app.post('*', function(req, res, next) {
   next();
 });
 
-app.get('/changeTime', function(req, res, next) {
+app.get('/change-time', function(req, res, next) {
   res.send({message: lastChange});
 });
 
