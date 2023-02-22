@@ -205,7 +205,6 @@ class ApiController {
       for (let i = 0; i < sortedIds.length; i += 1) {
         arrMixes.push(db.mixes[sortedIds[i] - 1]);
       }
-      console.log(arrMixes)
       return res.status(200).json(arrMixes);
     } catch (e) {
       console.log(e);
