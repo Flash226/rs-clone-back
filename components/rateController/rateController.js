@@ -1,6 +1,6 @@
 const extendedProfile = require('../../models/extended_user_profile');
 const notAuthProfile = require('../../models/not_auth_user_profile')
-const User = require('../../models/user');
+const Mix = require('../../models/mix');
 const { json } = require('express');
 const { getRateFunction } = require('../getRateFunction/getRateFunction');
 
@@ -99,6 +99,61 @@ class RateController {
     } catch (e) {
       console.log(e);
       res.status(400).json({message: `Set favorite flavors error`});
+    }
+  };
+
+  async getMyMix(req, res) {
+    try {
+      const id = String(req.params.id.slice(1));
+      const userProfile = await extendedProfile.findOne({userId: id});
+      const myMix = userProfile.myMix;
+      return res.json(myMix);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get my mix error`});
+    }
+  };
+
+  async setMyMix(req, res) {
+    try {
+      const newMix = req.body;
+      const userId = newMix.idUser;
+      const allMixUsers = await Mix.find();
+      const newIdMix = 36 + allMixUsers.length;
+      newMix.id = newIdMix;
+      const userProfile = await extendedProfile.findOne({userId: userId});
+      userProfile.myMix.push(newMix.id);
+      const mix = new Mix(newMix);
+      await userProfile.save();
+      await mix.save();
+      return res.status(200).json(userProfile.myMix); 
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Set new user mix error`});
+    }
+  };
+
+  async getAllMixUsers(req, res) {
+    try {
+      const allMixUsers = await Mix.find();
+      const allMix = [];
+      for (let mix of allMixUsers) {
+        const userId = mix.idUser;
+        const userProfile = await extendedProfile.findOne({ userId: userId });
+        const mixWithUserProfile = {
+          ...mix.toObject(),
+          userName: userProfile.name,
+          instagramAccount: userProfile.instagramAccount,
+          avatar: userProfile.avatar
+        };
+        mixWithUserProfile.compositionById = Object.fromEntries(mix.compositionById);
+        mixWithUserProfile.compositionByPercentage = Object.fromEntries(mix.compositionByPercentage);
+        allMix.push(mixWithUserProfile);
+    }
+      return res.json(allMix);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get all mix users error`});
     }
   };
 

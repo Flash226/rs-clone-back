@@ -13,5 +13,7 @@ router.get('/favorite/:id', rateController.getFavorite);
 router.post('/favorite', rateController.setFavorite);
 router.get('/favoriteflavor/:id', rateController.getFavoriteFlavor);
 router.post('/favoriteflavor', rateController.setFavoriteFlavor);
-
+router.get('/my-mix/:id', rateController.getMyMix);
+router.post('/my-mix', rateController.setMyMix);
+router.get('/mix-users-all', rateController.getAllMixUsers);
 module.exports = router;

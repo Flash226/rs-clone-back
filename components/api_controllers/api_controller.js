@@ -1,5 +1,6 @@
 const Brand = require('../../models/brand');
 const Flavor = require('../../models/flavor');
+const Mix = require('../../models/mix');
 const SearchPhrase = require('../../models/search_phrase');
 const extendedProfile = require('../../models/extended_user_profile');
 const notAuthProfile = require('../../models/not_auth_user_profile');
@@ -111,6 +112,43 @@ class ApiController {
     }
   };
 
+  async getMix(req, res) {
+    try {
+      const id = Number(req.params.id.slice(1));
+      let indexElement = -1;
+      let mix;
+      if (id < 36) {
+        indexElement = db.mixes.findIndex((el) => el.id === id);
+        mix = db.mixes[indexElement];
+      } else {
+        let mixNew = [];
+        if (await Mix.count() !== 0) {
+          mixNew = await Mix.find();
+        }
+        indexElement = mixNew.findIndex((el) => el.id === id);
+        mix = mixNew[indexElement];
+        const userId = mix.idUser;
+        const userProfile = await extendedProfile.findOne({ userId: userId });
+        const mixWithUserProfile = {
+          ...mix.toObject(),
+          userName: userProfile.name,
+          instagramAccount: userProfile.instagramAccount,
+          avatar: userProfile.avatar
+        };
+        mixWithUserProfile.compositionById = Object.fromEntries(mix.compositionById);
+        mixWithUserProfile.compositionByPercentage = Object.fromEntries(mix.compositionByPercentage);
+        mix = mixWithUserProfile;
+      }
+      if (indexElement === -1) {
+        res.status(404).send('404 Not found');
+      } else {
+        res.status(200).json(mix);
+   }
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({message: `Get mix error`});
+    }
+  };
 
   async searchAccessor(req, res) {
     try {

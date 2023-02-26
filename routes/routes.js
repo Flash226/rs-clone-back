@@ -33,15 +33,7 @@ const router = app => {
 
   app.post('/flavorpreference', apiController.flavorPreferenceAccessor);
 
-  app.get('/api/mixes/:id', (request, response) => {
-    const id = Number(request.params.id.slice(1));
-    const indexElement = db.mixes.findIndex((el) => el.id === id);
-    if (indexElement === -1) {
-      response.status(404).send('404');
-    } else {
-      response.status(200).send(db.mixes[indexElement]);
-   }
-	});
+  app.get('/api/mixes/:id', apiController.getMix);
 
 
   app.get('/api/randommix', (req, res) => {
